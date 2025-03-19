@@ -11,8 +11,8 @@ Hi there! 👋
 I’m currently pursuing a degree in **Commerce and Science**, with a major in **Economics, Statistics, and Business Analytics**. I decided to take **STATS 220** because it will help me develop some core data handling skills, something I believe will be essential for my career (and hopefully open up many opportunities 🚀).
 
 Some things about me:
-- I’m in my third year of university and this is my 5th stats course at UOA 
-- I’m particularly excited to learn how to produce insightful and visually appealing **RMarkdown** documents.
+- I’m in my third year of university and this is my *fifth* stats course at UOA 
+- I’m particularly excited to learn how to produce *insightful* and *visually appealing* **RMarkdown** documents.
 - In my free time, I love playing hockey and are a keen Arsenal supporter. 
 
 ---
@@ -41,9 +41,9 @@ Sometimes university life can be a rollercoaster, but this meme pretty much sums
 
 Here’s a quick rundown of some of the topics I’m diving into as part of the course:
 
-- **Data Wrangling**: Cleaning and organizing raw data so it’s ready for analysis.
-- **Data Visualization**: Creating clear and compelling charts and graphs using R.
-- **Reporting with RMarkdown**: Learning how to create professional reports that combine text, code, and output in one cohesive document.
+1. **Data Wrangling**: Cleaning and organizing raw data so it’s ready for analysis.
+2. **Data Visualization**: Creating clear and compelling charts and graphs using R.
+3. **Reporting with RMarkdown**: Learning how to create professional reports that combine text, code, and output in one cohesive document.
 
 ---
 
