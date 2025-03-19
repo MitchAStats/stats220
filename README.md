@@ -1,6 +1,6 @@
-# stats220
+# Stats220
 
-This is my repo for STATS 220. 
+This repository contains all my work in the Stats 220 course at the University of Auckland. 
 
 A little about me:
 
