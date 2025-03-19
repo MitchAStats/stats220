@@ -33,7 +33,7 @@ The focus of this repository is to showcase my work in **STATS 220**. From data 
 
 Sometimes university life can be a rollercoaster, but this meme pretty much sums it up:
 
-![]([https://c.tenor.com/8druEACXtX8AAAAd/tenor.gif](https://media1.tenor.com/m/1cL5fzcjpaQAAAAd/laptop.gif))
+!(https://media1.tenor.com/m/1cL5fzcjpaQAAAAd/laptop.gif)
 
 ---
 
