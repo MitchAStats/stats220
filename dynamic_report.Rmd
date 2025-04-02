@@ -1,0 +1,151 @@
+---
+title: My dynamic report
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+
+```
+
+```{css}
+h2 {
+  color: #skyblue;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  background-color: #F0F0F0;
+  padding: 20px;
+}
+h3{
+  color: #2a9d8f;
+  font-weight: bold;
+  background-color: #F0F0F0;
+  padding: 20px;
+}
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #666666;
+}
+```
+
+## Analysis of Bus Service and Patronage
+
+This study aims to investigate the experiences of students using the NX2 bus service to the North Shore, specifically looking at issues like overcrowding and missed buses. The focus areas of this report include:
+
+1. The effect of bus size on patronage scores (i.e., whether double-decker buses are perceived differently than single-decker buses).
+
+2. The relationship between missed buses and patronage scores (i.e., do passengers who miss their bus report higher or lower satisfaction?).
+
+### 1. Bus Size and Patronage Scores
+
+The data was analysed for two bus sizes: Single Decker and Double Decker. Below is a bar graph that shows the mean patronage score for each bus size.
+
+```{r}
+library(tidyverse)
+
+#import data
+csv_file <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vTbIDdO7Hle2s0VLvqfN0h50sBI9-zSVtb5AZsaYsqmZQWbTnfU1VVeJb4UKJQgH8lRRRpugX5b9MZO/pub?gid=1386381818&single=true&output=csv"
+logged_data <- read_csv(csv_file)
+
+#rename variables
+latest_data <- rename(logged_data,
+                      bus_size = 2,
+                      patronage_score = 3,
+                      standing_requirement = 4,
+                      missed_bus = 5,
+                      bus_frequency = 6,
+                      service_time = 7,
+                      service_day = 8)
+
+# Filter for double decker buses
+double_decker_data <- subset(latest_data, bus_size == "Double Decker")
+
+# Calculate mean patronage score
+mean_double_decker_patronage <- mean(double_decker_data$patronage_score)
+
+# Print result
+print(mean_double_decker_patronage)
+
+# Filter for single decker buses
+single_decker_data <- subset(latest_data, bus_size == "Single Decker")
+
+# Calculate mean patronage score
+mean_single_decker_patronage <- mean(single_decker_data$patronage_score)
+
+# Print result
+print(mean_single_decker_patronage)
+
+# Create a data frame
+bus_size <- c("Single Decker", "Double Decker")
+mean_patronage_score <- c(mean_single_decker_patronage, mean_double_decker_patronage)
+mean_size_data <- data.frame(bus_size, mean_patronage_score)
+
+# Create a graph 
+mean_size_data %>%
+  ggplot() +
+  geom_bar(aes(x = bus_size, 
+               y = mean_patronage_score), 
+           stat = "identity", 
+           fill = "skyblue") +
+  ylim(0, 5) +
+  labs(title = "Bus Size v Patronage Score",
+       x = "Bus Size",
+       y = "Mean Patronage Score",
+       caption = "Source: STATS 220 survey S125")
+
+
+```
+
+
+**Insights from Bus Size Analysis**
+
+The analysis shows that double-decker buses have a mean patronage score of `r mean_double_decker_patronage`, while single-decker buses have a mean score of `r mean_single_decker_patronage`. 
+
+Passenger comfort levels vary significantly across different times and locations. A patronage level of 3 indicates that seats are available but require sitting next to another passenger, which may lead to a moderate level of crowding discomfort. At level 4, some passengers are standing, suggesting that the service is nearing full capacity. At level 5, where demand exceeds capacity, causing passengers to be turned away. 
+
+This suggests that passengers on double-decker buses generally experience higher satisfaction, as there is a greater likelihood of seat availability. Conversely, single-decker buses are more likely to reach full capacity, increasing the chances of passengers being turned away. This indicates a potential need to allocate more double-decker buses on high-demand routes or adjust scheduling to better match passenger loads.
+
+### 2. Missed Bus and Patronage Scores
+
+Next, we explored how the experience of missing a bus affects the patronage score. Below is the bar graph that shows the mean patronage score for students who missed their bus and those who did not.
+
+```{r}
+
+# Patronage based on service time
+missed_bus_data <- subset(latest_data, missed_bus == "Yes")
+not_missed_bus <- subset(latest_data, missed_bus == "No")
+
+#Calculate means
+missed_bus_patronage <- mean(missed_bus_data$patronage_score)
+not_missed_patronage <- mean(not_missed_bus$patronage_score)
+
+# Print results
+print(missed_bus_patronage)
+print(not_missed_patronage)
+
+# Create a data frame
+missed_bus <- c("Missed Bus", "Didn't Miss Bus")
+mean_patronage_score <- c(missed_bus_patronage, not_missed_patronage)
+mean_missed_data <- data.frame(missed_bus, mean_patronage_score)
+
+# Create a graph
+mean_missed_data %>%
+  ggplot() +
+  geom_bar(aes(x = missed_bus, y = mean_patronage_score), stat = "identity", fill = "skyblue") +
+  ylim(0, 5) +
+  labs(title = "Missed Bus vs Patronage Score",
+       x = "Missed Bus?",
+       y = "Mean Patronage Score",
+       caption = "Source: STATS 220 survey S125")
+
+
+```
+
+**Insights from Missed Bus Analysis**
+
+As for the impact of missed buses, those who missed their bus reported a mean patronage score of `r missed_bus_patronage`, while those who did not miss their bus had a mean score of `r not_missed_patronage`. As expected, higher patronage scores correlate with a greater likelihood of passengers being turned away.
+
+However, an interesting finding is that the patronage score for missed buses was not consistently 5, meaning that in some cases, buses departed with standing room still available. This suggests that some students are choosing not to board even when standing space is an option. Likely, they are waiting for a less crowded service.
+
+This behaviour can be inefficient, as it may lead to longer wait times and uneven passenger distribution across buses. Addressing this issue may involve strategies such as improving real-time occupancy information, encouraging better utilisation of available capacity, or adjusting service frequency to reduce crowding perceptions.  
